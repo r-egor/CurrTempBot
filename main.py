@@ -1,9 +1,11 @@
 import telebot
 import nbrb_api
-from bot_token import token
+import coin_api
+import weather_api
+import settings_bot
 
 
-bot = telebot.TeleBot(token)
+bot = telebot.TeleBot(settings_bot.token)
 
 @bot.message_handler(commands=['start'])
 def start(message):
@@ -11,8 +13,12 @@ def start(message):
     greeting = f'Добрый день, {message.from_user.first_name}'
     # Currency rate for User
     usd = nbrb_api.get_currency_rate()
+    # Crypto price
+    crypto = coin_api.get_crypto_prices()
+    # Weather
+    weather = weather_api.get_weather_forecast()
     # Send 'start' message
-    start_message = f'{greeting}\n\n{usd}'
+    start_message = f'{greeting}\n\n{usd}\n\n{crypto}\n\n{weather}'
     bot.send_message(message.chat.id, start_message)
 
 
