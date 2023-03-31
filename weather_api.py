@@ -24,7 +24,7 @@ def get_weather_forecast():
                        f'🌝 {current_temp} ' \
                        f'🌚 ({night_temp})'
     else:
-        message_text = "Weather"
+        message_text = "⛔️Weather"
 
     return message_text
 
