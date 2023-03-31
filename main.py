@@ -18,7 +18,7 @@ def start(message):
     # Weather
     weather = weather_api.get_weather_forecast()
     # Send 'start' message
-    start_message = f'{greeting}\n\n{usd}\n\n{crypto}\n\n{weather}'
+    start_message = f'{greeting}\n\n{usd}\n\n{weather}\n\n{crypto}≈'
     bot.send_message(message.chat.id, start_message)
 
 

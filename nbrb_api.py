@@ -6,28 +6,30 @@ def get_currency_rate():
     get_usd = requests.get(settings_bot.usd)
     data_usd = get_usd.json()
 
-    cur_abbreviation_usd = data_usd['Cur_Abbreviation']
-    cur_official_rate_usd = data_usd['Cur_OfficialRate']
+    if get_usd.status_code == 200:
 
-    # Get EUR
-    get_eur = requests.get(settings_bot.eur)
-    data_eur = get_eur.json()
+        usd_abbreviation = data_usd['Cur_Abbreviation']
+        usd_official_rate = round(data_usd['Cur_OfficialRate'], 2)
 
-    cur_abbreviation_eur = data_eur['Cur_Abbreviation']
-    cur_official_rate_eur = data_eur['Cur_OfficialRate']
+        # Get EUR
+        get_eur = requests.get(settings_bot.eur)
+        data_eur = get_eur.json()
 
-    # Get RUB
-    get_rub = requests.get(settings_bot.rub)
-    data_rub = get_rub.json()
+        eur_abbreviation = data_eur['Cur_Abbreviation']
+        eur_official_rate = round(data_eur['Cur_OfficialRate'], 2)
 
-    cur_abbreviation_rub = data_rub['Cur_Abbreviation']
-    cur_official_rate_rub = data_rub['Cur_OfficialRate']
+        # Get RUB
+        get_rub = requests.get(settings_bot.rub)
+        data_rub = get_rub.json()
 
-    # Message
-    message_text = f"🇺🇸 {cur_abbreviation_usd}: {cur_official_rate_usd}\n"\
-                   f"🇪🇺 {cur_abbreviation_eur}: {cur_official_rate_eur}\n" \
-                   f"🇷🇺 {cur_abbreviation_rub}: {cur_official_rate_rub}"
+        rub_abbreviation = data_rub['Cur_Abbreviation']
+        rub_official_rate = round(data_rub['Cur_OfficialRate'], 2)
+
+        # Message
+        message_text = f"🇺🇸 {usd_abbreviation}: {usd_official_rate}\n"\
+                       f"🇪🇺 {eur_abbreviation}: {eur_official_rate}\n" \
+                       f"🇷🇺 {rub_abbreviation}: {rub_official_rate}"
+    else:
+        message_text = "⛔️Currency rate"
 
     return message_text
-
-print(get_currency_rate())
