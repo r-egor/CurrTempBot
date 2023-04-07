@@ -1,30 +1,41 @@
 import requests
 import settings_bot
-from translate import Translator
 
 def get_weather_forecast():
     # Get weather
-    get_weather = requests.get(settings_bot.weather)
-    data = get_weather.text.split('\n')
+    brest_weather = requests.get(settings_bot.brest_weather)
+    brest = brest_weather.text
 
-    if get_weather.status_code ==200:
-        # Weather description
-        weather_desc = data[0]
-        # Temperature
-        current_temp = data[1]
-        night_temp = data[2]
+    vitebsk_weather = requests.get(settings_bot.vitebsk_weather)
+    vitebsk = vitebsk_weather.text
 
-        # Translate weather description in ru
-        translator = Translator(to_lang="ru")
-        weather_desc_rus = translator.translate(weather_desc)
+    gomel_weather = requests.get(settings_bot.gomel_weather)
+    gomel = gomel_weather.text
+
+    grodno_weather = requests.get(settings_bot.grodno_weather)
+    grodno = grodno_weather.text
+
+    minsk_weather = requests.get(settings_bot.minsk_weather)
+    minsk = minsk_weather.text
+
+    mogilev_weather = requests.get(settings_bot.mogilev_weather)
+    mogilev = mogilev_weather.text
+
+    if brest_weather.status_code == 200 and vitebsk_weather.status_code ==200\
+            and gomel_weather.status_code == 200 and grodno_weather.status_code == 200\
+            and minsk_weather.status_code == 200 and mogilev_weather.status_code ==200:
 
         # Message Minsk
-        message_text = f'Погода в Минске:\n' \
-                       f'{weather_desc_rus} ' \
-                       f'🌝 {current_temp} ' \
-                       f'🌚 ({night_temp})'
+        message_text = f'{brest}' \
+                       f'{vitebsk}' \
+                       f'{gomel}'\
+                       f'{grodno}'\
+                       f'{minsk}'\
+                       f'{mogilev}'\
+
     else:
         message_text = "⛔️Weather"
 
     return message_text
 
+print(get_weather_forecast())

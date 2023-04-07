@@ -24,4 +24,3 @@ def get_crypto_prices():
     return message_text
 
 
-
