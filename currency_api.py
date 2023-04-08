@@ -11,11 +11,7 @@ def get_currency_rate():
         return "⛔️Currency rate"
 
     # Dictionary emoji
-    currency_emoji = {
-        'USD': '🇺🇸',
-        'EUR': '🇪🇺',
-        'RUB': '🇷🇺'
-    }
+    emoji = settings_bot.currency_emoji
 
     # Get only USD / EUR / RUB
 
@@ -29,7 +25,7 @@ def get_currency_rate():
             # Find rates
             rate = round(message['Cur_OfficialRate'], 2)
             # Add emoji
-            currency_abbreviation = f"{currency_emoji[message['Cur_Abbreviation']]} {message['Cur_Abbreviation']}"
+            currency_abbreviation = f"{emoji[message['Cur_Abbreviation']]} {message['Cur_Abbreviation']}"
             # Save in variable Abbreviation + rate
             currency_rates.append(f"{currency_abbreviation}: {rate}")
 

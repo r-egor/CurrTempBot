@@ -12,16 +12,7 @@ def get_weather_forecast():
         return "⛔️Weather"
 
     # Emoji for weather - main
-    emoji = {
-        'Clouds': '☁️',
-        'Clear': '☀️',
-        'Rain': '☔️',
-        'Snow': '❄️',
-        'Fog': '🌫️',
-        'Thunderstorm': '⛈️',
-        'Drizzle': '🌧️',
-        'Squall': '🌬️'
-    }
+    emoji = settings_bot.weather_emoji
 
     data = get_weather.json()
 
@@ -30,7 +21,7 @@ def get_weather_forecast():
 
     for city in data['list']:
             # Add emoji
-            weather_emoji = f"{emoji[city['weather'][0]['main']]}"
+            weather_emoji = f"{emoji.get(city['weather'][0]['main'], ' ')}"
             # Save in variable City + Temp
             weather_forecast.append(f"{city['name']}: {weather_emoji} 🌡️{round(city['main']['temp'])}°C "
                                     f"👤{round(city['main']['feels_like'])}°C")
