@@ -1,30 +1,26 @@
 import requests
 import settings_bot
-from translate import Translator
+
 
 def get_weather_forecast():
-    # Get weather
-    get_weather = requests.get(settings_bot.weather)
-    data = get_weather.text.split('\n')
 
-    if get_weather.status_code ==200:
-        # Weather description
-        weather_desc = data[0]
-        # Temperature
-        current_temp = data[1]
-        night_temp = data[2]
+    # Get weather in Brest, Vitebsk, Gomel, Grodno, Minsk, Mogilev
+    get_weather = requests.get(settings_bot.base_url, settings_bot.params)
 
-        # Translate weather description in ru
-        translator = Translator(to_lang="ru")
-        weather_desc_rus = translator.translate(weather_desc)
+    # Check status code
+    if get_weather.status_code != 200:
+        return "⛔️Weather"
 
-        # Message Minsk
-        message_text = f'Погода в Минске:\n' \
-                       f'{weather_desc_rus} ' \
-                       f'🌝 {current_temp} ' \
-                       f'🌚 ({night_temp})'
-    else:
-        message_text = "⛔Weather"
+    data = get_weather.json()
 
-    return message_text
+    # Variable where we will write the result
+    weather_forecast = []
+
+    for city in data['list']:
+            # Save in variable City + Temp
+            weather_forecast.append(f"{city['name']}: 🌡️{round(city['main']['temp'])}°C")
+
+    return "\n".join(weather_forecast)
+
+print(get_weather_forecast())
 
