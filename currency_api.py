@@ -34,5 +34,3 @@ def get_currency_rate():
             currency_rates.append(f"{currency_abbreviation}: {rate}")
 
     return "\n".join(currency_rates)
-
-print(get_currency_rate())
