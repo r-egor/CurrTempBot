@@ -21,6 +21,3 @@ def get_weather_forecast():
             weather_forecast.append(f"{city['name']}: 🌡️{round(city['main']['temp'])}°C")
 
     return "\n".join(weather_forecast)
-
-print(get_weather_forecast())
-
