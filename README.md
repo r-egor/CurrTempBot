@@ -5,9 +5,3 @@ This is simple Telegram bot to display the following:
 
 Technologies: the bot was developed in Python using the framework for 
 creating Telegram bots - Telebot.
-
-API - Exchange rates https://www.nbrb.by/api
-
-API - Crypto https://www.coingecko.com/
-
-API - Weater https://wttr.in
