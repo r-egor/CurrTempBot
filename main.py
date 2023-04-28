@@ -3,7 +3,7 @@ import currency_api
 import coin_api
 import weather_api
 import settings_bot
-import database
+from database import Database_users
 
 
 bot = telebot.TeleBot(settings_bot.token)
@@ -18,7 +18,8 @@ def start(message):
     language_code = message.from_user.language_code
 
     #Add to database
-    database.add_user_to_db(user_id, username, first_name, last_name, language_code)
+    database_users = Database_users()
+    database_users.add_user(user_id, username, first_name, last_name, language_code)
 
     # User greeting
     greeting = f'Добрый день, {message.from_user.first_name}'
@@ -31,6 +32,5 @@ def start(message):
     # Send 'start' message
     start_message = f'{greeting}\n\n{currency}\n\n{weather}\n\n{crypto}'
     bot.send_message(message.chat.id, start_message)
-
 
 bot.polling(none_stop=True)

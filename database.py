@@ -1,24 +1,32 @@
 import sqlite3
 
-def add_user_to_db(user_id, username, first_name, last_name, language_code):
+class Database_users:
     # Connect to Database
-    conn = sqlite3.connect("tg_users.db")
-    # Object to interact with the database
-    cursor = conn.cursor()
+    def __init__(self):
+        self.conn = sqlite3.connect("tg_users.db")
+        self.cursor = self.conn.cursor()
 
-    # Check if user already exists in the database
-    cursor.execute("SELECT id FROM users WHERE id=?", (user_id,))
-    result = cursor.fetchone()
-    if result is None:
+    # Add users to tg_users.db
+    def add_user(self, user_id, username, first_name, last_name, language_code):
+        # Check if user already exists in the database
+        self.cursor.execute("SELECT user_id FROM users WHERE user_id=?", (user_id,))
+        result = self.cursor.fetchone()
 
-        # Add user to BD
-        cursor.execute("INSERT INTO users (id, username, first_name, last_name, language_code) VALUES (?, ?, ?, ?, ?)",
-                       (user_id, username if username is not None else '',
-                        first_name if first_name is not None else '',
-                        last_name if last_name is not None else '',
-                        language_code if language_code is not None else ''))
+        # If user does not exist, add them to the database
+        if result is None:
+            self.cursor.execute(
+                "INSERT INTO users (user_id, username, first_name, last_name, language_code) VALUES (?, ?, ?, ?, ?)",
+                (user_id, username if username is not None else '',
+                 first_name if first_name is not None else '',
+                 last_name if last_name is not None else '',
+                 language_code if language_code is not None else ''))
+            self.conn.commit()
 
-    # Save change
-    conn.commit()
-    # Close
-    conn.close()
+    # Get users from tg_users.db
+    def get_user(self, user_id):
+        self.cursor.execute("SELECT user_id, first_name FROM users")
+        return self.cursor.fetchone()
+
+    # Close the database connection
+    def __del__(self):
+        self.conn.close()
