@@ -23,9 +23,9 @@ class DatabaseUsers:
             self.conn.commit()
 
     # Get users from users
-    def get_user(self, user_id):
+    def get_user(self):
         self.cursor.execute("SELECT user_id, first_name FROM users")
-        return self.cursor.fetchone()
+        return self.cursor.fetchall()
 
     # Close the database connection
     def __del__(self):
