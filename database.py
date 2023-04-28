@@ -1,6 +1,6 @@
 import sqlite3
 
-class Database_users:
+class DatabaseUsers:
     # Connect to Database
     def __init__(self):
         self.conn = sqlite3.connect("tg_users.db")
@@ -22,7 +22,7 @@ class Database_users:
                  language_code if language_code is not None else ''))
             self.conn.commit()
 
-    # Get users from tg_users.db
+    # Get users from users
     def get_user(self, user_id):
         self.cursor.execute("SELECT user_id, first_name FROM users")
         return self.cursor.fetchone()

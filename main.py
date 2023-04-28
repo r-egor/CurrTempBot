@@ -3,7 +3,7 @@ import currency_api
 import coin_api
 import weather_api
 import settings_bot
-from database import Database_users
+from database import DatabaseUsers
 
 
 bot = telebot.TeleBot(settings_bot.token)
@@ -18,7 +18,7 @@ def start(message):
     language_code = message.from_user.language_code
 
     #Add to database
-    database_users = Database_users()
+    database_users = DatabaseUsers()
     database_users.add_user(user_id, username, first_name, last_name, language_code)
 
     # User greeting
