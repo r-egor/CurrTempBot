@@ -20,6 +20,7 @@ def start(message):
     #Add to database
     database_users = DatabaseUsers()
     database_users.add_user(user_id, username, first_name, last_name, language_code)
+    database_users.update_user(user_id, username, first_name, last_name, language_code)
 
     # User greeting
     greeting = f'Добрый день, {message.from_user.first_name}'
