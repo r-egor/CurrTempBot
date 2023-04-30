@@ -44,6 +44,11 @@ class DatabaseUsers:
                 self.cursor.execute("UPDATE users SET language_code=? WHERE user_id=?", (language_code, user_id))
             self.conn.commit()
 
+    # Delete user
+    def delete_user(self, user_id):
+        self.cursor.execute("DELETE FROM users WHERE user_id=?", (user_id,))
+        self.conn.commit()
+
     # Close the database connection
     def __del__(self):
         self.conn.close()
