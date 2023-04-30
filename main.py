@@ -10,16 +10,18 @@ bot = telebot.TeleBot(settings_bot.token)
 
 @bot.message_handler(commands=['start'])
 def start(message):
-    #Get info about users
+    # Get info about users
     user_id = message.chat.id
     username = message.chat.username
     first_name = message.chat.first_name
     last_name = message.chat.last_name
     language_code = message.from_user.language_code
 
-    #Add to database
+    # Work with Database users
     database_users = DatabaseUsers()
+    # Add user in Database users
     database_users.add_user(user_id, username, first_name, last_name, language_code)
+    # Update info about user in Database users
     database_users.update_user(user_id, username, first_name, last_name, language_code)
 
     # User greeting
