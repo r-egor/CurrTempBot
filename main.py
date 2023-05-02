@@ -19,10 +19,8 @@ def start(message):
 
     # Work with Database users
     database_users = DatabaseUsers()
-    # Add user in Database users
+    # Add&Update user in Database users
     database_users.add_user(user_id, username, first_name, last_name, language_code)
-    # Update info about user in Database users
-    database_users.update_user(user_id, username, first_name, last_name, language_code)
 
     # User greeting
     greeting = f'Добрый день, {message.from_user.first_name}'
