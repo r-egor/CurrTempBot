@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+  tgbot:
+    build: .
+    restart: always
+    volumes: 
+      - ./tg_users.db:/app/tg_users.db
