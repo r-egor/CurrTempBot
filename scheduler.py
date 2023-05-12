@@ -9,6 +9,17 @@ import time
 
 bot = telebot.TeleBot(settings_bot.token)
 
+def get_info():
+    # Currency rate
+    currency = currency_api.get_currency_rate()
+    # Crypto price
+    crypto = coin_api.get_crypto_prices()
+    # Weather
+    weather = weather_api.get_weather_forecast()
+    # All info into one variable
+    daily_info = f"{currency}\n\n{weather}\n\n{crypto}"
+    return daily_info
+
 def send_daily_message():
     database_users = DatabaseUsers()
     users = database_users.get_user()
@@ -16,14 +27,10 @@ def send_daily_message():
         try:
             # User greeting
             greeting = f'Добрый день, {user[1]}'
-            # Currency rate
-            currency = currency_api.get_currency_rate()
-            # Crypto price
-            crypto = coin_api.get_crypto_prices()
-            # Weather
-            weather = weather_api.get_weather_forecast()
+            # Get daily information
+            daily_info = get_info()
             # Send daily message
-            daily_message = f"{greeting}\n\n{currency}\n\n{weather}\n\n{crypto}"
+            daily_message = f"{greeting}\n\n{daily_info}"
             bot.send_message(user[0], daily_message)
         except telebot.apihelper.ApiTelegramException as error:
             # If the user has blocked the bot, delete the user from the database
