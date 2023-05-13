@@ -4,5 +4,7 @@ services:
   tgbot:
     build: .
     restart: always
+    environment:
+      - TZ=Europe/Minsk
     volumes: 
       - ./tg_users.db:/app/tg_users.db
