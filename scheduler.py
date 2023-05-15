@@ -2,12 +2,15 @@ import telebot
 import currency_api
 import coin_api
 import weather_api
-import settings_bot
 from database import DatabaseUsers
 import schedule
 import time
+from dotenv import load_dotenv
+import os
 
-bot = telebot.TeleBot(settings_bot.token)
+load_dotenv('.env')
+
+bot = telebot.TeleBot(os.getenv('token'))
 
 def get_info():
     # Currency rate

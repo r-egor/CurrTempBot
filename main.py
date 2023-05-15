@@ -2,11 +2,13 @@ import telebot
 import currency_api
 import coin_api
 import weather_api
-import settings_bot
 from database import DatabaseUsers
+from dotenv import load_dotenv
+import os
 
+load_dotenv('.env')
 
-bot = telebot.TeleBot(settings_bot.token)
+bot = telebot.TeleBot(os.getenv('token'))
 
 @bot.message_handler(commands=['start'])
 def start(message):

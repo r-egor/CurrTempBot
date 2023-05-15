@@ -1,4 +1,4 @@
-settings_bot.py
 tg_users.db
 .idea
 __pycache__
+.env

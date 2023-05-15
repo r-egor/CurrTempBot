@@ -1,10 +1,12 @@
 import requests
-import settings_bot
+from dotenv import load_dotenv
+import os
 
+load_dotenv('.env')
 
 def get_crypto_prices():
     # Get API Crypto
-    get_crypto = requests.get(settings_bot.crypto)
+    get_crypto = requests.get(os.getenv('crypto'))
     # Check status code
     if get_crypto.status_code != 200:
         return "⛔️Crypto"

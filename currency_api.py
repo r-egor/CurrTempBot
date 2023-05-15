@@ -1,19 +1,21 @@
 import requests
-import settings_bot
+import emoji_bot
+from dotenv import load_dotenv
+import os
+
+load_dotenv('.env')
 
 def get_currency_rate():
 
     # Get all currency
-    get_rates = requests.get(settings_bot.rates)
+    get_rates = requests.get(os.getenv('rates'))
 
     # Check status code
     if get_rates.status_code != 200:
         return "⛔️Currency rate"
 
     # Dictionary emoji
-    emoji = settings_bot.currency_emoji
-
-    # Get only USD / EUR / RUB
+    emoji = emoji_bot.currency_emoji
 
     # Variable where we will write the result
     currency_rates = []

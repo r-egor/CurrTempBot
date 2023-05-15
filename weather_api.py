@@ -1,18 +1,22 @@
 import requests
-import settings_bot
+import emoji_bot
+from dotenv import load_dotenv
+import os
+
+load_dotenv('.env')
 
 
 def get_weather_forecast():
 
     # Get weather in Brest, Vitebsk, Gomel, Grodno, Minsk, Mogilev
-    get_weather = requests.get(settings_bot.base_url, settings_bot.params)
+    get_weather = requests.get(os.getenv('base_url'))
 
     # Check status code
     if get_weather.status_code != 200:
         return "⛔️Weather"
 
     # Emoji for weather - main
-    emoji = settings_bot.weather_emoji
+    emoji = emoji_bot.weather_emoji
 
     data = get_weather.json()
 
