@@ -25,6 +25,8 @@ def get_info():
 
 def send_daily_message():
     database_users = DatabaseUsers()
+    # Get daily information
+    daily_info = get_info()
     users = database_users.get_user()
     for user in users:
         try:
