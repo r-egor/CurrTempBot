@@ -7,6 +7,7 @@ import os
 load_dotenv('.env')
 
 def get_currency_rate():
+    database = DatabaseUsers()
 
     # Get all currency
     get_rates = requests.get(os.getenv('rates'))
@@ -29,10 +30,23 @@ def get_currency_rate():
             rate = round(message['Cur_OfficialRate'], 2)
             # Add emoji
             currency_abbreviation = f"{emoji[message['Cur_Abbreviation']]} {message['Cur_Abbreviation']}"
-            # Save in variable Abbreviation + rate
-            currency_rates.append(f"{currency_abbreviation}: {rate}")
+            # Get previous rate for the currency
+            previous_rate = database.get_previous_rate(currency_abbreviation)
+
             # Save to database
             database = DatabaseUsers()
             database.insert_currency_data(currency_abbreviation, rate)
+
+            # Compare rates and add arrow emoji if changed
+            if previous_rate is not None:
+                previous_rate = float(previous_rate)
+                if rate > previous_rate:
+                    rate = f"{rate} ⬆️"
+                elif rate < previous_rate:
+                    rate = f"{rate} ⬇️"
+
+            # Save in variable Abbreviation + rate
+            currency_rates.append(f"{currency_abbreviation}: {rate}")
+
 
     return "\n".join(currency_rates)
