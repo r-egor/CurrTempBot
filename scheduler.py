@@ -42,9 +42,8 @@ def send_daily_message():
             if error.result.status_code == 403:
                 database_users.delete_user(user[0])
 
-# Schedule the daily message to be sent every day at 11:00 and 16:00
+# Schedule the daily message to be sent every day at 11:00
 schedule.every().day.at("11:00").do(send_daily_message)
-schedule.every().day.at("16:00").do(send_daily_message)
 
 # Run the schedule loop
 while True:
