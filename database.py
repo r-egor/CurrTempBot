@@ -41,7 +41,6 @@ class DatabaseUsers:
         else:
             return None
 
-
     # Close the database connection
     def __del__(self):
         self.conn.close()
