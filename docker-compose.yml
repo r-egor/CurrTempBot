@@ -7,4 +7,4 @@ services:
     environment:
       - TZ=Europe/Minsk
     volumes: 
-      - ./tg_users.db:/app/tg_users.db
+      - ./tg_database.db:/app/tg_database.db
