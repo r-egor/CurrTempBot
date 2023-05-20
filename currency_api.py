@@ -1,6 +1,7 @@
 import requests
 import emoji_bot
 from dotenv import load_dotenv
+from database import DatabaseUsers
 import os
 
 load_dotenv('.env')
@@ -30,5 +31,8 @@ def get_currency_rate():
             currency_abbreviation = f"{emoji[message['Cur_Abbreviation']]} {message['Cur_Abbreviation']}"
             # Save in variable Abbreviation + rate
             currency_rates.append(f"{currency_abbreviation}: {rate}")
+            # Save to database
+            database = DatabaseUsers()
+            database.insert_currency_data(currency_abbreviation, rate)
 
     return "\n".join(currency_rates)
