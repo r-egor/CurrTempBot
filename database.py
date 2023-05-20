@@ -27,6 +27,21 @@ class DatabaseUsers:
         self.cursor.execute("DELETE FROM users WHERE user_id=?", (user_id,))
         self.conn.commit()
 
+    # Add currency rate to Database currency
+    def insert_currency_data(self, cur_addr, cur_rate):
+        self.cursor.execute("INSERT INTO currency (cur_addr, cur_rate) VALUES (?, ?);", (cur_addr, cur_rate))
+        self.conn.commit()
+
+    def get_previous_rate(self, currency):
+        self.cursor.execute("SELECT cur_rate, cur_addr FROM currency WHERE cur_addr=? ORDER BY cur_time DESC LIMIT 3",
+                            (currency,))
+        result = self.cursor.fetchone()
+        if result:
+            return result[0]
+        else:
+            return None
+
+
     # Close the database connection
     def __del__(self):
         self.conn.close()
