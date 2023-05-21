@@ -28,14 +28,17 @@ def get_currency_rate():
         if message['Cur_Abbreviation'] in ['USD', 'EUR', 'RUB']:
             # Find rates
             rate = round(message['Cur_OfficialRate'], 2)
-            # Add emoji
-            currency_abbreviation = f"{emoji[message['Cur_Abbreviation']]} {message['Cur_Abbreviation']}"
+            # Add abbreviation
+            currency_abbreviation = f"{message['Cur_Abbreviation']}"
             # Get previous rate for the currency
             previous_rate = database.get_previous_rate(currency_abbreviation)
 
             # Save to database
             database = DatabaseUsers()
             database.insert_currency_data(currency_abbreviation, rate)
+
+            # Add emoji
+            currency_emoji_abbreviation = f"{emoji[message['Cur_Abbreviation']]} {currency_abbreviation}"
 
             # Compare rates and add arrow emoji if changed
             if previous_rate is not None:
@@ -46,7 +49,7 @@ def get_currency_rate():
                     rate = f"{rate} ⬇️"
 
             # Save in variable Abbreviation + rate
-            currency_rates.append(f"{currency_abbreviation}: {rate}")
+            currency_rates.append(f"{currency_emoji_abbreviation}: {rate}")
 
 
     return "\n".join(currency_rates)
