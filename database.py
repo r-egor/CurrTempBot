@@ -32,6 +32,7 @@ class DatabaseUsers:
         self.cursor.execute("INSERT INTO currency (cur_addr, cur_rate) VALUES (?, ?);", (cur_addr, cur_rate))
         self.conn.commit()
 
+    # Get previous rate
     def get_previous_rate(self, currency):
         self.cursor.execute("SELECT cur_rate, cur_addr FROM currency WHERE cur_addr=? ORDER BY cur_time DESC LIMIT 3",
                             (currency,))
