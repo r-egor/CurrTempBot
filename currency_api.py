@@ -35,7 +35,7 @@ def get_currency_rate():
 
             # Save to database
             database = DatabaseUsers()
-            database.insert_currency_data(currency_abbreviation, rate)
+            database.insert_currency_data(rate, rate)
 
             # Compare rates and add arrow emoji if changed
             if previous_rate is not None:
