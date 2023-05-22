@@ -44,6 +44,7 @@ def send_daily_message():
 
 # Schedule the daily message to be sent every day at 11:00
 schedule.every().day.at("11:00").do(send_daily_message)
+schedule.every().day.at("16:00").do(send_daily_message)
 
 # Run the schedule loop
 while True:

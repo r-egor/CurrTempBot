@@ -43,9 +43,9 @@ def get_currency_rate():
             # Compare rates and add arrow emoji if changed
             if previous_rate is not None:
                 previous_rate = float(previous_rate)
-                if rate > previous_rate:
+                if rate > float(previous_rate):
                     rate = f"{rate} ⬆️"
-                elif rate < previous_rate:
+                elif rate < float(previous_rate):
                     rate = f"{rate} ⬇️"
 
             # Save in variable Abbreviation + rate
