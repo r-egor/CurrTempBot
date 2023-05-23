@@ -42,6 +42,13 @@ def send_daily_message():
             if error.result.status_code == 403:
                 database_users.delete_user(user[0])
 
+def scheduler_get_currency_for_database():
+    currency_rate = currency_api.CurrencyRate()
+    currency_rate.get_currency_for_database()
+
+# Schedule for get currency rate and save to database
+schedule.every().day.at("10:00").do(scheduler_get_currency_for_database)
+
 # Schedule the daily message to be sent every day at 11:00
 schedule.every().day.at("11:00").do(send_daily_message)
 schedule.every().day.at("16:00").do(send_daily_message)
