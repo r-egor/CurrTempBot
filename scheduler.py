@@ -14,7 +14,8 @@ bot = telebot.TeleBot(os.getenv('token'))
 
 def get_info():
     # Currency rate
-    currency = currency_api.get_currency_rate()
+    currency_rate = currency_api.CurrencyRate()
+    currency = currency_rate.get_currency_rate()
     # Crypto price
     crypto = coin_api.get_crypto_prices()
     # Weather
@@ -50,7 +51,7 @@ def scheduler_get_currency_for_database():
 schedule.every().day.at("10:00").do(scheduler_get_currency_for_database)
 
 # Schedule the daily message to be sent every day at 11:00
-schedule.every().day.at("11:00").do(send_daily_message)
+schedule.every().day.at("14:10").do(send_daily_message)
 schedule.every().day.at("16:00").do(send_daily_message)
 
 # Run the schedule loop

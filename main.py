@@ -27,7 +27,8 @@ def start(message):
     # User greeting
     greeting = f'Добрый день, {message.from_user.first_name}'
     # Currency rate
-    currency = currency_api.get_currency_rate()
+    currency_rate = currency_api.CurrencyRate()
+    currency = currency_rate.get_currency_rate()
     # Crypto price
     crypto = coin_api.get_crypto_prices()
     # Weather
