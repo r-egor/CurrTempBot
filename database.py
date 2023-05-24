@@ -10,7 +10,7 @@ class DatabaseUsers:
     def add_user(self, user_id, username, first_name, last_name, language_code):
             self.cursor.execute(
                 "INSERT OR REPLACE INTO users (user_id, username, first_name, last_name, "
-                "language_code) VALUES (?, ?, ?, ?, ?)",
+                "language_code, push) VALUES (?, ?, ?, ?, ?, 1)",
                 (user_id, username if username else '',
                  first_name if first_name else '',
                  last_name if last_name else '',
@@ -19,7 +19,7 @@ class DatabaseUsers:
 
     # Get users from Database users
     def get_user(self):
-        self.cursor.execute("SELECT user_id, first_name FROM users")
+        self.cursor.execute("SELECT user_id, first_name FROM users WHERE push=1")
         return self.cursor.fetchall()
 
     # Delete user
@@ -41,6 +41,11 @@ class DatabaseUsers:
             return result[0]
         else:
             return None
+
+    # Set notification ON - OFF
+    def notification_on_off(self, user_id, push_value):
+        self.cursor.execute("UPDATE users SET push=? WHERE user_id=?", (push_value, user_id))
+        self.conn.commit()
 
     # Close the database connection
     def __del__(self):

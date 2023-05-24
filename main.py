@@ -37,4 +37,22 @@ def start(message):
     start_message = f'{greeting}\n\n{currency}\n\n{weather}\n\n{crypto}'
     bot.send_message(message.chat.id, start_message)
 
+@bot.message_handler(commands=['notification_on'])
+def push_on(message):
+    user_id = message.chat.id
+    database = DatabaseUsers()
+    database.notification_on_off(user_id, 1)
+
+    notification_on = 'Бот будет присылать уведомления каждый день в 11:00 и 16:00'
+    bot.send_message(message.chat.id, notification_on)
+
+@bot.message_handler(commands=['notification_off'])
+def push_on(message):
+    user_id = message.chat.id
+    database = DatabaseUsers()
+    database.notification_on_off(user_id, 0)
+
+    notification_on = f'Бот не беспокоит'
+    bot.send_message(message.chat.id, notification_on)
+
 bot.polling(none_stop=True)
