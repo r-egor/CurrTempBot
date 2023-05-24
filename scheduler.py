@@ -25,9 +25,8 @@ def get_info():
     return daily_info
 
 def send_daily_message():
+    
     database_users = DatabaseUsers()
-    # Get daily information
-    daily_info = get_info()
     users = database_users.get_user()
     for user in users:
         try:
@@ -51,7 +50,7 @@ def scheduler_get_currency_for_database():
 schedule.every().day.at("10:00").do(scheduler_get_currency_for_database)
 
 # Schedule the daily message to be sent every day at 11:00
-schedule.every().day.at("14:10").do(send_daily_message)
+schedule.every().day.at("11:00").do(send_daily_message)
 schedule.every().day.at("16:00").do(send_daily_message)
 
 # Run the schedule loop
