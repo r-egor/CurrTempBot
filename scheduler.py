@@ -47,7 +47,7 @@ def scheduler_get_currency_for_database():
     currency_rate.get_currency_for_database()
 
 # Schedule for get currency rate and save to database
-schedule.every().day.at("10:00").do(scheduler_get_currency_for_database)
+schedule.every().day.at("21:00").do(scheduler_get_currency_for_database)
 
 # Schedule the daily message to be sent every day at 11:00
 schedule.every().day.at("11:00").do(send_daily_message)
