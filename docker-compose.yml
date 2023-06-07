@@ -8,3 +8,5 @@ services:
       - TZ=Europe/Minsk
     volumes: 
       - ./tg_database.db:/app/tg_database.db
+      - /var/run/ntpd:/var/run/ntpd
+      - /etc/localtime:/etc/localtime:ro
