@@ -1,16 +1,17 @@
 import requests
-import emoji_bot
+from services import emoji_bot
 from dotenv import load_dotenv
-from database import DatabaseUsers
+from services.database import DatabaseUsers
 import os
 import time
 
-load_dotenv('.env')
+load_dotenv('../.env')
 
 class CurrencyRate:
 
     def __init__(self):
         self.database = DatabaseUsers()
+
     def get_currency_rate(self):
 
         # Get all currency

@@ -1,16 +1,17 @@
 import telebot
-import currency_api
-import coin_api
-import weather_api
+from api import coin_api, weather_api, currency_api
 from database import DatabaseUsers
 import schedule
 import time
 from dotenv import load_dotenv
 import os
 
-load_dotenv('.env')
+load_dotenv('./.env')
 
 bot = telebot.TeleBot(os.getenv('token'))
+
+weather_obj = weather_api.Weather_forecast()
+
 
 def get_info():
     # Currency rate
@@ -19,10 +20,11 @@ def get_info():
     # Crypto price
     crypto = coin_api.get_crypto_prices()
     # Weather
-    weather = weather_api.get_weather_forecast()
+    weather = weather_obj.get_weather('main')
     # All info into one variable
     daily_info = f"{currency}\n\n{weather}\n\n{crypto}"
     return daily_info
+
 
 def send_daily_message():
     
@@ -42,6 +44,7 @@ def send_daily_message():
             if error.result.status_code == 403:
                 database_users.delete_user(user[0])
 
+
 def scheduler_get_currency_for_database():
     currency_rate = currency_api.CurrencyRate()
     currency_rate.get_currency_for_database()
@@ -50,7 +53,7 @@ def scheduler_get_currency_for_database():
 schedule.every().day.at("21:00").do(scheduler_get_currency_for_database)
 
 # Schedule the daily message to be sent every day at 11:00
-schedule.every().day.at("11:00").do(send_daily_message)
+schedule.every().day.at("21:20").do(send_daily_message)
 schedule.every().day.at("16:00").do(send_daily_message)
 
 # Run the schedule loop

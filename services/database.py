@@ -3,19 +3,19 @@ import sqlite3
 class DatabaseUsers:
     # Connect to Database
     def __init__(self):
-        self.conn = sqlite3.connect("tg_database.db")
+        self.conn = sqlite3.connect("./tg_database.db")
         self.cursor = self.conn.cursor()
 
     # Add users to Database users
     def add_user(self, user_id, username, first_name, last_name, language_code):
-            self.cursor.execute(
-                "INSERT OR REPLACE INTO users (user_id, username, first_name, last_name, "
-                "language_code, push) VALUES (?, ?, ?, ?, ?, 1)",
-                (user_id, username if username else '',
-                 first_name if first_name else '',
-                 last_name if last_name else '',
-                 language_code if language_code else ''))
-            self.conn.commit()
+        self.cursor.execute(
+            "INSERT OR REPLACE INTO users (user_id, username, first_name, last_name, "
+            "language_code, push) VALUES (?, ?, ?, ?, ?, 1)",
+            (user_id, username if username else '',
+                first_name if first_name else '',
+                last_name if last_name else '',
+                language_code if language_code else ''))
+        self.conn.commit()
 
     # Get users from Database users
     def get_user(self):

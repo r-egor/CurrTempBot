@@ -2,7 +2,7 @@ import requests
 from dotenv import load_dotenv
 import os
 
-load_dotenv('.env')
+load_dotenv('../.env')
 
 def get_crypto_prices():
     # Get API Crypto
