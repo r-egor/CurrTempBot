@@ -3,7 +3,7 @@ import sqlite3
 class DatabaseUsers:
     # Connect to Database
     def __init__(self):
-        self.conn = sqlite3.connect("./tg_database.db")
+        self.conn = sqlite3.connect("../tg_database.db")
         self.cursor = self.conn.cursor()
 
     # Add users to Database users

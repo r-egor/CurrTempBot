@@ -2,6 +2,8 @@ FROM python:3.9-alpine
 
 WORKDIR /app
 
+ENV PYTHONPATH $PYTHONPATH:/app
+
 RUN apk update && \
     apk add --no-cache supervisor
 

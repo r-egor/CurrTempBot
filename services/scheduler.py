@@ -53,7 +53,7 @@ def scheduler_get_currency_for_database():
 schedule.every().day.at("21:00").do(scheduler_get_currency_for_database)
 
 # Schedule the daily message to be sent every day at 11:00
-schedule.every().day.at("21:20").do(send_daily_message)
+schedule.every().day.at("23:33").do(send_daily_message)
 schedule.every().day.at("16:00").do(send_daily_message)
 
 # Run the schedule loop

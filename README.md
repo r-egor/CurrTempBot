@@ -26,7 +26,7 @@ Commands add @BotFather /setcommands
 
 start - start 🚀
 convert - Конвертор 🧮
-regional_weather - Погода в регионах
+regional_weather - Погода в регионах 🌤
 notification_off - уведомления 🔕
 notification_on - уведомления 🔔
 
